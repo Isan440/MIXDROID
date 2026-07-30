@@ -29,8 +29,12 @@ jobs:
       - name: Build APK debug
         run: ./gradlew :app:assembleGitHubProdDebug --stacktrace
 
+      - name: Cari lokasi APK hasil build (debug)
+        run: find app/build/outputs -name "*.apk"
+
       - name: Upload hasil APK
         uses: actions/upload-artifact@v4
         with:
           name: khmelonmix-android-debug
-          path: app/gitHubProd/debug/*.apk
+          path: app/build/outputs/apk/**/*.apk
+          if-no-files-found: warn
