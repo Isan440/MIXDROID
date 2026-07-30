@@ -1,0 +1,36 @@
+name: Build KHMelonMix APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo (termasuk submodule)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Terima lisensi Android SDK (jaga-jaga)
+        run: yes | sdkmanager --licenses || true
+
+      - name: Izinkan eksekusi gradlew
+        run: chmod +x gradlew
+
+      - name: Build APK debug
+        run: ./gradlew :app:assembleGitHubProdDebug --stacktrace
+
+      - name: Upload hasil APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: khmelonmix-android-debug
+          path: app/gitHubProd/debug/*.apk
