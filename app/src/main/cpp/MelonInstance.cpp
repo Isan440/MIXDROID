@@ -1,3 +1,4 @@
+#include "plugins/PluginManager.h"
 #include <ctime>
 #include <chrono>
 #include <EGL/egl.h>
@@ -345,6 +346,8 @@ u32 MelonInstance::runFrame()
     }
 
     u32 nLines = nds->RunFrame();
+    KHPlugin::refreshGameScene();
+    KHPlugin::buildShapes();
     retroAchievementsManager->FrameUpdate();
 
     if (!isRendererAccelerated)

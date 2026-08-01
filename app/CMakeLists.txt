@@ -42,6 +42,7 @@ add_library(
         ${ANDROID-CPP}/MelonDSAudio.cpp
         ${ANDROID-CPP}/MelonDSNandJNI.cpp
         ${ANDROID-CPP}/MelonInstance.cpp
+        ${ANDROID-CPP}/plugins/PluginManager.cpp
         ${ANDROID-CPP}/MicInputOboeCallback.cpp
         ${ANDROID-CPP}/NativeGlContext.cpp
         ${ANDROID-CPP}/OboeCallback.cpp
