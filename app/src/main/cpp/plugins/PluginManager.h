@@ -1,13 +1,19 @@
 #ifndef KHMELONMIX_PLUGINMANAGER_H
 #define KHMELONMIX_PLUGINMANAGER_H
 
-// Kerangka awal porting Plugin dari KHMelonMix (PC/Qt) ke melonDS-android.
-// Dipanggil sekali per frame dari MelonInstance.cpp, tepat setelah nds->RunFrame().
-// Logic Plugin asli (refreshGameScene/buildShapes dari Plugin.cpp KHMelonMix)
-// akan diisi bertahap di sini pada langkah-langkah berikutnya.
+// Porting bertahap dari Plugin (KHMelonMix PC/Qt) ke melonDS-android.
+// Dipanggil sekali per frame dari MelonInstance.cpp, setelah nds->RunFrame().
 namespace KHPlugin {
-    void refreshGameScene();
+    enum class GameType {
+        Unknown,
+        KH358Days
+        // KHReCoded: tambahkan di sini nanti setelah Game Code-nya didapat
+    };
+
+    // gameCode: pointer ke 4 karakter Game Code dari header ROM (boleh nullptr kalau tidak ada cart).
+    void refreshGameScene(const char* gameCode);
     void buildShapes();
+    GameType getDetectedGame();
 }
 
 #endif //KHMELONMIX_PLUGINMANAGER_H

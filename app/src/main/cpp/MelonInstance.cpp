@@ -346,7 +346,14 @@ u32 MelonInstance::runFrame()
     }
 
     u32 nLines = nds->RunFrame();
-    KHPlugin::refreshGameScene();
+    {
+        const char* khGameCode = nullptr;
+        auto* khCart = nds->NDSCartSlot.GetCart();
+        if (khCart != nullptr) {
+            khGameCode = khCart->GetHeader().GameCode;
+        }
+        KHPlugin::refreshGameScene(khGameCode);
+    }
     KHPlugin::buildShapes();
     retroAchievementsManager->FrameUpdate();
 
